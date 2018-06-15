@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);
         BottomNavHelper.removeShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        //Load the default "Home Fragment"
+        if(savedInstanceState==null){
+            loadFragment(new Fragment_Home());
+        }
     }
 
     private void loadFragment(Fragment fragment) {
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Fragment fragment;
         switch (item.getItemId()){
             case R.id.nav_home:
-                actionBar.setTitle("It's a Steal");
+                actionBar.setTitle("It's a Steal!");
                 fragment = new Fragment_Home();
                 loadFragment(fragment);
                 return true;
@@ -63,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
 
             case R.id.nav_notification:
-                actionBar.setTitle("Notifcation");
+                actionBar.setTitle("Notification");
                 fragment = new Fragment_Notification();
                 loadFragment(fragment);
                 return true;
