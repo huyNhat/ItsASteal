@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ItsASteal</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_notification">Notification</string>
+    <string name="nav_pinned">Pinned</string>
+    <string name="nav_post">Post Deal</string>
+    <string name="nav_profile">Profile</string>
+</resources>
