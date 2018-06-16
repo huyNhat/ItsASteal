@@ -1,17 +1,17 @@
-package ca.huynhat.itsasteal;
+package ca.huynhat.itsasteal.utils;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+
+import ca.huynhat.itsasteal.R;
 
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.AppViewHolder> {
 
     //Empty Constructor
-    HomeRecyclerAdapter(){
+    public HomeRecyclerAdapter(){
 
     }
 

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg">
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
@@ -14,7 +15,8 @@
         android:id="@+id/recyclerView_NearByDeals"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7">
+        android:layout_weight="0.7"
+        >
     </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
