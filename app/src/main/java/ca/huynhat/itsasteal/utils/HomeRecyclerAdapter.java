@@ -5,6 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import ca.huynhat.itsasteal.R;
 
@@ -27,6 +30,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull AppViewHolder holder, int position) {
+        Picasso.get().load(R.drawable.beats_solo).resize(50, 50)
+                .centerCrop().into(holder.thumbnail);
 
     }
 
@@ -37,8 +42,15 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
 
     public class AppViewHolder extends RecyclerView.ViewHolder {
+
+        public ImageView thumbnail;
+
+
         public AppViewHolder(View itemView) {
             super(itemView);
+
+            thumbnail = (ImageView) itemView.findViewById(R.id.deal_image);
+
         }
     }
 }

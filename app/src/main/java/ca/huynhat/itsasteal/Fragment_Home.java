@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -51,6 +52,7 @@ public class Fragment_Home extends Fragment {
 
     //Widgets
     private RecyclerView homeRecyclerView;
+    private BottomSheetBehavior bottomSheetBehavior;
 
     private HomeRecyclerAdapter homeRecyclerAdapter;
 
@@ -67,6 +69,9 @@ public class Fragment_Home extends Fragment {
         View rootView= inflater.inflate(R.layout.fragment_home_layout, container,false);
 
         initMap(rootView,savedInstanceState);
+
+        bottomSheetBehavior = BottomSheetBehavior.from(rootView.findViewById(R.id.bottom_sheet));
+
 
         //Setting up RecyclerView
         homeRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView_NearByDeals);
@@ -101,10 +106,10 @@ public class Fragment_Home extends Fragment {
             public void onMapReady(final GoogleMap googleMap) {
                 mGoogleMap = googleMap;
 
-                mLocationRequest = new LocationRequest();
-                mLocationRequest.setInterval(120000); // two minute interval
-                mLocationRequest.setFastestInterval(120000);
-                mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+//                mLocationRequest = new LocationRequest();
+//                mLocationRequest.setInterval(120000); // two minute interval
+//                mLocationRequest.setFastestInterval(120000);
+//                mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
                 if(checkLocationPermission()){
                     if(ContextCompat.checkSelfPermission(getActivity(),
