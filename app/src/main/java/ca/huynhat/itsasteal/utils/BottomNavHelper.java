@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
     Ref: https://stackoverflow.com/questions/40396545/bottomnavigationview-display-both-icons-and-text-labels-at-all-times/47407229#47407229
  */
 
-public class BottomNavHelper   {
+public class BottomNavHelper {
     @SuppressLint("RestrictedApi")
     public static void removeShiftMode(BottomNavigationView view) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);

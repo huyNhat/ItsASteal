@@ -30,8 +30,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull AppViewHolder holder, int position) {
-        Picasso.get().load(R.drawable.beats_solo).resize(50, 50)
-                .centerCrop().into(holder.thumbnail);
+        Picasso.get().load(R.drawable.beats_solo).resize(60, 80).into(holder.thumbnail);
 
     }
 

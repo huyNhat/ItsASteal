@@ -72,7 +72,7 @@ public class Fragment_Home extends Fragment {
 
         bottomSheetBehavior = BottomSheetBehavior.from(rootView.findViewById(R.id.bottom_sheet));
 
-
+        bottomSheetBehavior.setPeekHeight(380);
         //Setting up RecyclerView
         homeRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView_NearByDeals);
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -81,9 +81,6 @@ public class Fragment_Home extends Fragment {
 
 
         homeRecyclerView.setAdapter(homeRecyclerAdapter);
-
-
-
 
         return rootView;
     }
@@ -179,14 +176,9 @@ public class Fragment_Home extends Fragment {
                     if (ContextCompat.checkSelfPermission(getActivity(),
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
-
-
                         mGoogleMap.setMyLocationEnabled(true);
                     }
-
                 } else {
-
-
                 }
                 return;
             }
