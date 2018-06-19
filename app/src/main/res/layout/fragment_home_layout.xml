@@ -14,7 +14,7 @@
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg"
+        android:background="@color/lightGrey"
         app:behavior_hideable="false"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
