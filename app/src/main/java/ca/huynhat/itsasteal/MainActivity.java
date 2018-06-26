@@ -1,5 +1,6 @@
 package ca.huynhat.itsasteal;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -74,9 +75,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
 
             case R.id.nav_profile:
+                /*
                 actionBar.setTitle("My Profile");
                 fragment = new Fragment_Profile();
                 loadFragment(fragment);
+                */
+                Intent mIntent = new Intent(MainActivity.this, Login.class);
+                startActivity(mIntent);
+                finish();
                 return true;
         }
         return false;
