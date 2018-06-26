@@ -32,7 +32,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 4;
     }
 
 
