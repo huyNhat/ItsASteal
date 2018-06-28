@@ -1,7 +1,6 @@
-package ca.huynhat.itsasteal;
+package ca.huynhat.itsasteal.ui;
 
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,10 +9,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import ca.huynhat.itsasteal.utils.BottomNavHelper;
+import ca.huynhat.itsasteal.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -113,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (isMenuTapped)
                     mDrawerLayout.openDrawer(GravityCompat.START);
                   else
-                      mDrawerLayout.closeDrawer(GravityCompat.START);
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
                 return true;
         }
         return super.onOptionsItemSelected(item);

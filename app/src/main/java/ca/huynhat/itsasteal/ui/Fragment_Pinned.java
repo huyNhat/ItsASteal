@@ -1,4 +1,4 @@
-package ca.huynhat.itsasteal;
+package ca.huynhat.itsasteal.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Fragment_Post extends Fragment {
-    private static final String TAG = Fragment_Post.class.getSimpleName();
+import ca.huynhat.itsasteal.R;
+
+public class Fragment_Pinned extends Fragment {
+    private static final String TAG = Fragment_Pinned.class.getSimpleName();
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -19,7 +21,7 @@ public class Fragment_Post extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView= inflater.inflate(R.layout.fragment_post_layout, container,false);
+        View rootView= inflater.inflate(R.layout.fragment_pinned_layout, container,false);
 
         return rootView;
     }

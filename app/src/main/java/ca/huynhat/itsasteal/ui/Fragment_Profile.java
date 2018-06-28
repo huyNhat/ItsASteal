@@ -1,4 +1,4 @@
-package ca.huynhat.itsasteal;
+package ca.huynhat.itsasteal.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import ca.huynhat.itsasteal.R;
 
 public class Fragment_Profile extends Fragment {
     private static final String TAG = Fragment_Profile.class.getSimpleName();

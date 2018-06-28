@@ -1,6 +1,7 @@
-package ca.huynhat.itsasteal;
+package ca.huynhat.itsasteal.ui;
 
 import android.Manifest;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -18,6 +19,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
@@ -34,7 +36,9 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
+import ca.huynhat.itsasteal.R;
 import ca.huynhat.itsasteal.utils.HomeRecyclerAdapter;
+import ca.huynhat.itsasteal.viewmodels.HomeFeedViewModel;
 
 /**
  * Ref: http://androiddhina.blogspot.com/2017/11/how-to-use-google-map-in-fragment.html
@@ -77,10 +81,26 @@ public class Fragment_Home extends Fragment {
         homeRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView_NearByDeals);
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         homeRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        homeRecyclerAdapter = new HomeRecyclerAdapter();
 
 
-        homeRecyclerView.setAdapter(homeRecyclerAdapter);
+        final ProgressBar mProgressBar = (ProgressBar) rootView.findViewById(R.id.loading_bar);
+
+
+        //ViewModel & LiveData
+        HomeFeedViewModel homeFeedViewModel = ViewModelProviders.of(this).get(HomeFeedViewModel.class);
+        homeFeedViewModel.getDeals().observe(this, deals -> {
+            //Update UI
+            homeRecyclerAdapter = new HomeRecyclerAdapter(getActivity(),deals);
+            homeRecyclerView.setAdapter(homeRecyclerAdapter);
+            mProgressBar.setVisibility(View.GONE);
+
+        });
+
+
+
+
+
+
 
         return rootView;
     }

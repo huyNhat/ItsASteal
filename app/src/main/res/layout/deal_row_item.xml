@@ -9,7 +9,6 @@
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="8dp"
     android:id="@+id/my_card_view"
-    android:layout_marginBottom="4dp"
     android:layout_marginTop="4dp"
     android:layout_marginLeft="4dp"
     android:layout_marginRight="4dp"
@@ -60,7 +59,7 @@
 
 
         <TextView
-            android:id="@+id/price_view"
+            android:id="@+id/post_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
@@ -70,15 +69,15 @@
             card_view:layout_constraintTop_toBottomOf="@+id/deal_store" />
 
         <TextView
-            android:id="@+id/my_price_view_text"
+            android:id="@+id/deal_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:layout_marginStart="4dp"
             android:text="10 mins ago"
             android:textColor="@color/colorPrimary"
-            card_view:layout_constraintBottom_toBottomOf="@+id/price_view"
-            card_view:layout_constraintStart_toEndOf="@+id/price_view" />
+            card_view:layout_constraintBottom_toBottomOf="@+id/post_text"
+            card_view:layout_constraintStart_toEndOf="@+id/post_text" />
 
         <TextView
             android:id="@+id/thumps_up_count"
