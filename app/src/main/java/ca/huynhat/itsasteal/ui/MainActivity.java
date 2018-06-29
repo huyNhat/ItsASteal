@@ -1,5 +1,6 @@
 package ca.huynhat.itsasteal.ui;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -95,9 +96,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
 
             case R.id.nav_profile:
+<<<<<<< HEAD:app/src/main/java/ca/huynhat/itsasteal/ui/MainActivity.java
                 actionbar.setTitle("My Profile");
+=======
+                /*
+                actionBar.setTitle("My Profile");
+>>>>>>> FacebookLogin:app/src/main/java/ca/huynhat/itsasteal/MainActivity.java
                 fragment = new Fragment_Profile();
                 loadFragment(fragment);
+                */
+                Intent mIntent = new Intent(MainActivity.this, Login.class);
+                startActivity(mIntent);
+                finish();
                 return true;
         }
         return false;

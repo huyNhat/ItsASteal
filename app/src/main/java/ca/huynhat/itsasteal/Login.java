@@ -1,10 +1,10 @@
-package ca.huynhat.itsasteal.ui;
+package ca.huynhat.itsasteal;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,28 +24,23 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
-import ca.huynhat.itsasteal.R;
+import ca.huynhat.itsasteal.ui.Fragment_Profile;
 
-public class Fragment_Profile extends Fragment {
-    private static final String TAG = Fragment_Profile.class.getSimpleName() + " FACELOG";
+public class Login extends AppCompatActivity {
+
+    private static final String TAG = Fragment_Profile.class.getSimpleName() + " LoginAct_FACELOG";
 
     private CallbackManager mCallbackManager;
 
     private FirebaseAuth mAuth;
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView= inflater.inflate(R.layout.fragment_profile_layout, container,false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
 
         Log.d(TAG, "Inside Facebook Fragment");
 
@@ -54,7 +49,7 @@ public class Fragment_Profile extends Fragment {
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();  //The callback manager is like a bridge between FB and the app, that will allow info to pass
-        LoginButton loginButton = (LoginButton)rootView.findViewById(R.id.login_button);
+        LoginButton loginButton = (LoginButton)findViewById(R.id.login_button1);
         loginButton.setReadPermissions("email", "public_profile"); //we can add more permissions here like (image, dateofbirth, handling post, writepostpermission in case we want to get more info from the user profile)
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -75,8 +70,6 @@ public class Fragment_Profile extends Fragment {
                 // ...
             }
         });
-
-        return rootView;
     }
 
     //TODO: For this method to work on the Fragment I had to make it public instead of protected. Check if this is good for security reason.
@@ -84,7 +77,7 @@ public class Fragment_Profile extends Fragment {
     // successfull, or no, or if error. We put it here so that it is proccessesd when the login
     // activity is populated
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Pass the activity result back to the Facebook SDK
@@ -105,7 +98,7 @@ public class Fragment_Profile extends Fragment {
     ///Change not logged in UI to Logged in UI.
     //TODO: What will happen if login successful
     private void updateUI() {
-        Toast.makeText(getActivity(), "You are logged in", Toast.LENGTH_LONG).show();
+        Toast.makeText(Login.this, "You are logged in", Toast.LENGTH_LONG).show();
 
     }
 
@@ -115,7 +108,7 @@ public class Fragment_Profile extends Fragment {
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)  //Similar to what we do with "SignInWithUserPAssword, we use here signInWithCredential
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -126,7 +119,7 @@ public class Fragment_Profile extends Fragment {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed.",
+                            Toast.makeText(Login.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
@@ -134,5 +127,8 @@ public class Fragment_Profile extends Fragment {
                     }
                 });
     }
+
+
+
 
 }

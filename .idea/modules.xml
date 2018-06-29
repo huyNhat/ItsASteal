@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ItsASteal.iml" filepath="$PROJECT_DIR$/ItsASteal.iml" />
+      <module fileurl="file://C:/Users/david/OneDrive/Documentos/AndroidPrjcts/ItsASteal/ItsASteal.iml" filepath="C:/Users/david/OneDrive/Documentos/AndroidPrjcts/ItsASteal/ItsASteal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ItsASteal.iml" filepath="$PROJECT_DIR$/.idea/ItsASteal.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
