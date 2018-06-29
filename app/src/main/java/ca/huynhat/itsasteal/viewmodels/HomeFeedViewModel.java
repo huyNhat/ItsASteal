@@ -6,8 +6,6 @@ import android.arch.lifecycle.ViewModel;
 import android.os.Handler;
 import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,8 +46,8 @@ public class HomeFeedViewModel extends ViewModel {
                         1.1,1.1,"","","3" ));
 
 
-//            long seed = System.nanoTime();
-//            Collections.shuffle(dealList, new Random(seed));
+                long seed = System.nanoTime();
+                Collections.shuffle(dealList, new Random(seed));
 
                 deals.setValue(dealList);
             }

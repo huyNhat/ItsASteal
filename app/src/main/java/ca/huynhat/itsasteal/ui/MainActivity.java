@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // set item as selected to persist highlight
-        item.setChecked(true);
+        //item.setChecked(true);
         // close drawer when item is tapped
         mDrawerLayout.closeDrawers();
 
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // For example, swap UI fragments here
 
 
-        Fragment fragment;
+        Fragment fragment= null;
         switch (item.getItemId()){
             case R.id.nav_home:
                 actionbar.setTitle("It's a Steal!");

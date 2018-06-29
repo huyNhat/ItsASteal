@@ -48,7 +48,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
         holder.deal_name.setText(mDeal.getDealName());
         holder.deal_store.setText(mDeal.getStoreName());
-        holder.price.setText(String.valueOf(mDeal.getPrice()));
+        holder.price.setText("$"+String.valueOf(mDeal.getPrice()));
         holder.num_thumps_up.setText(String.valueOf(mDeal.getThumpsUp()));
 
         String sampleImgUrl = "https://images.unsplash.com/photo-1458862768540-8b091824fe2d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=8aae34cf35df31a592f0bef16e6342ef";
