@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/deal_image_detail"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/activity_horizontal_margin">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8">
+            <TextView
+                android:id="@+id/deal_name_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:text="Beats Solo 3 + Free Case"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_domain_black_16dp"
+                android:text="The Source"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_domain_black_16dp"
+                android:text="Est. Quantity: 18 pcs"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_domain_black_16dp"
+                android:text="Posted: 10 mins ago"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:drawableLeft=""
+            android:text="$79"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="32sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_thumb_up_black_24dp"
+            android:background="@color/lightGrey"/>
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_thumb_down_black_24dp"
+            android:background="@color/lightGrey"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/detailsView_recycler_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

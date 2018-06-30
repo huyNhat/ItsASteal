@@ -55,8 +55,6 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         Picasso.get().load(sampleImgUrl).resize(60, 80).into(holder.thumbnail);
 
 
-
-
     }
 
     @Override
