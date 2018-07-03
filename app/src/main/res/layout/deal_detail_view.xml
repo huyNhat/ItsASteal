@@ -51,7 +51,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:drawableLeft=""
             android:text="$79"
             android:textAlignment="center"
             android:gravity="center"

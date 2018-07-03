@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -20,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
@@ -35,8 +35,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ca.huynhat.itsasteal.R;
+import ca.huynhat.itsasteal.models.Deal;
+import ca.huynhat.itsasteal.utils.BaseFragment;
 import ca.huynhat.itsasteal.utils.HomeRecyclerAdapter;
 import ca.huynhat.itsasteal.viewmodels.HomeFeedViewModel;
 
@@ -44,8 +47,8 @@ import ca.huynhat.itsasteal.viewmodels.HomeFeedViewModel;
  * Ref: http://androiddhina.blogspot.com/2017/11/how-to-use-google-map-in-fragment.html
  */
 
-public class Fragment_Home extends Fragment {
-    private static final String TAG = Fragment_Home.class.getSimpleName();
+public class FragmentHome extends BaseFragment {
+    private static final String TAG = FragmentHome.class.getSimpleName();
 
     private MapView mMapView;
     private GoogleMap mGoogleMap;
@@ -88,9 +91,20 @@ public class Fragment_Home extends Fragment {
 
         //ViewModel & LiveData
         HomeFeedViewModel homeFeedViewModel = ViewModelProviders.of(this).get(HomeFeedViewModel.class);
-        homeFeedViewModel.getDeals().observe(this, deals -> {
+        homeFeedViewModel.getDeals().observe(this, (List<Deal> deals) -> {
             //Update UI
-            homeRecyclerAdapter = new HomeRecyclerAdapter(getActivity(),deals);
+            homeRecyclerAdapter = new HomeRecyclerAdapter(getActivity(), deals, new HomeRecyclerAdapter.OnDealItemClickListener() {
+                @Override
+                public void onItemClick(Deal deal) {
+                    Toast.makeText(getActivity(), deal.getDealName() + " tapped", Toast.LENGTH_SHORT).show();
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .add(R.id.frame_container,new Fragment_Deal_Detail())
+                            .addToBackStack(null)
+                            .commit();
+
+                }
+            });
             homeRecyclerView.setAdapter(homeRecyclerAdapter);
             mProgressBar.setVisibility(View.GONE);
 
