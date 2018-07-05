@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -39,7 +40,6 @@ import java.util.List;
 
 import ca.huynhat.itsasteal.R;
 import ca.huynhat.itsasteal.models.Deal;
-import ca.huynhat.itsasteal.utils.BaseFragment;
 import ca.huynhat.itsasteal.utils.HomeRecyclerAdapter;
 import ca.huynhat.itsasteal.viewmodels.HomeFeedViewModel;
 
@@ -47,7 +47,7 @@ import ca.huynhat.itsasteal.viewmodels.HomeFeedViewModel;
  * Ref: http://androiddhina.blogspot.com/2017/11/how-to-use-google-map-in-fragment.html
  */
 
-public class FragmentHome extends BaseFragment {
+public class FragmentHome extends Fragment {
     private static final String TAG = FragmentHome.class.getSimpleName();
 
     private MapView mMapView;
@@ -99,7 +99,7 @@ public class FragmentHome extends BaseFragment {
                     Toast.makeText(getActivity(), deal.getDealName() + " tapped", Toast.LENGTH_SHORT).show();
 
                     getActivity().getSupportFragmentManager().beginTransaction()
-                            .add(R.id.frame_container,new Fragment_Deal_Detail())
+                            .replace(R.id.frame_container,new Fragment_Deal_Detail())
                             .addToBackStack(null)
                             .commit();
 
@@ -267,6 +267,9 @@ public class FragmentHome extends BaseFragment {
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("It's a Steal!");
+
+
     }
 
 

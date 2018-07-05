@@ -11,15 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.zhuinden.simplestack.BackstackDelegate;
-import com.zhuinden.simplestack.History;
-import com.zhuinden.simplestack.StateChange;
-import com.zhuinden.simplestack.StateChanger;
 
 import ca.huynhat.itsasteal.R;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
-        , StateChanger {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     //Widgets
@@ -27,16 +22,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBar actionbar;
 
 
-    BackstackDelegate backstackDelegate;
 
     //Vars
     private boolean isMenuTapped = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        backstackDelegate = new BackstackDelegate();
-        backstackDelegate.onCreate(savedInstanceState, getLastCustomNonConfigurationInstance(),
-                History.single());
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -53,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         //Load the default "Home Fragment"
-        if(savedInstanceState==null){
+        if(savedInstanceState == null){
             loadFragment(new FragmentHome());
         }
     }
@@ -129,8 +121,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void handleStateChange(@NonNull StateChange stateChange, @NonNull Callback completionCallback) {
-
-    }
 }
