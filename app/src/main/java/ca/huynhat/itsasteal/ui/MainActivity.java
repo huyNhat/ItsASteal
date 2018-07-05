@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+
 import ca.huynhat.itsasteal.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -21,11 +22,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBar actionbar;
 
 
+
     //Vars
     private boolean isMenuTapped = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -41,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         //Load the default "Home Fragment"
-        if(savedInstanceState==null){
-            loadFragment(new Fragment_Home());
+        if(savedInstanceState == null){
+            loadFragment(new FragmentHome());
         }
     }
 
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
             case R.id.nav_home:
                 actionbar.setTitle("It's a Steal!");
-                fragment = new Fragment_Home();
+                fragment = new FragmentHome();
                 loadFragment(fragment);
                 return true;
 
@@ -116,4 +120,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
