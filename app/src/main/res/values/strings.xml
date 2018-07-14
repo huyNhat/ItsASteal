@@ -10,4 +10,8 @@
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
         AIzaSyAfiSJAHbSeZw3D1VcqSnSNGzK7IkYO7Uc
      </string>
+    <string name="deal_name">Deal name:</string>
+    <string name="deal_description">Enter deal details</string>
+    <string name="deal_quantity">Quantity:</string>
+    <string name="deal_price">Price:</string>
 </resources>

@@ -1,19 +1,30 @@
 package ca.huynhat.itsasteal.models;
-
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * Created by 300269539 on 7/14/2018.
+ */
+
+@IgnoreExtraProperties
 public class Deal {
     private String deal_id;
     private String dealName;
     private String dealDesc;
     private int quantity;
     private long price;
+   // private @ServerTimestamp Date timestamp; //this annotation is supposed to
+    // be part of Firebase but for some reason is not available here
+
+
     private String storeName;
-    private Double latitude;
+   private Double latitude;
     private Double longtitude;
     private String timeStamp;
     private String deal_img_url;
@@ -22,20 +33,18 @@ public class Deal {
     private int thumpsUp;
     private int thumpsDown;
 
-
     Deal(){
 
     }
 
-    public Deal(String deal_id, String dealName, String dealDesc, int quantity, long price, String storeName,
-                Double latitude, Double longtitude, String timeStamp, String deal_img_url, String user_id) {
+    public Deal(String deal_id, String dealName, String dealDesc, int quantity, long price, String user_id) {
         this.deal_id = deal_id;
         this.dealName = dealName;
         this.dealDesc = dealDesc;
         this.quantity = quantity;
         this.price = price;
-        this.storeName = storeName;
-        this.latitude = latitude;
+       this.storeName = storeName;
+       this.latitude = latitude;
         this.longtitude = longtitude;
         this.timeStamp = timeStamp;
         this.deal_img_url = deal_img_url;
@@ -43,23 +52,24 @@ public class Deal {
         this.comments = new ArrayList<Comment>();
         this.thumpsUp=0;
         this.thumpsDown=0;
+
     }
 
-    public int getThumpsUp() {
-        return thumpsUp;
-    }
+        public int getThumpsUp() {
+            return thumpsUp;
+        }
 
-    public void setThumpsUp(int thumpsUp) {
-        this.thumpsUp = thumpsUp;
-    }
+        public void setThumpsUp(int thumpsUp) {
+            this.thumpsUp = thumpsUp;
+        }
 
-    public int getThumpsDown() {
-        return thumpsDown;
-    }
+        public int getThumpsDown() {
+            return thumpsDown;
+        }
 
-    public void setThumpsDown(int thumpsDown) {
-        this.thumpsDown = thumpsDown;
-    }
+        public void setThumpsDown(int thumpsDown) {
+            this.thumpsDown = thumpsDown;
+        }
 
     public long getPrice() {
         return price;
@@ -100,6 +110,7 @@ public class Deal {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
 
     public String getStoreName() {
         return storeName;
@@ -155,4 +166,3 @@ public class Deal {
 
 
 }
-

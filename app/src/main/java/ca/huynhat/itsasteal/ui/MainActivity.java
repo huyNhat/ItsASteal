@@ -13,8 +13,11 @@ import android.view.MenuItem;
 
 
 import ca.huynhat.itsasteal.R;
+import ca.huynhat.itsasteal.utils.IMainActivity;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener,
+        IMainActivity{
     private static final String TAG = MainActivity.class.getSimpleName();
 
     //Widgets
@@ -48,6 +51,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(savedInstanceState == null){
             loadFragment(new FragmentHome());
         }
+    }
+
+    @Override
+    public void createNewDeal(String title, String content) {
+
     }
 
     private void loadFragment(Fragment fragment) {
@@ -120,5 +128,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }
