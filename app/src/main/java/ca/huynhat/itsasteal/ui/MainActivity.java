@@ -96,9 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
 
             case R.id.nav_profile:
-<<<<<<< HEAD:app/src/main/java/ca/huynhat/itsasteal/ui/MainActivity.java
                 actionbar.setTitle("My Profile");
-=======
                 /*
                 actionBar.setTitle("My Profile");
 >>>>>>> FacebookLogin:app/src/main/java/ca/huynhat/itsasteal/MainActivity.java
