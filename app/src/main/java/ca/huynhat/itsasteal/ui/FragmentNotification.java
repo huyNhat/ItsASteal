@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import ca.huynhat.itsasteal.R;
 
-public class Fragment_Profile extends Fragment {
-    private static final String TAG = Fragment_Profile.class.getSimpleName();
+public class FragmentNotification extends Fragment {
+    private static final String TAG = FragmentNotification.class.getSimpleName();
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class Fragment_Profile extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView= inflater.inflate(R.layout.fragment_profile_layout, container,false);
+        View rootView= inflater.inflate(R.layout.fragment_notification_layout, container,false);
 
         return rootView;
     }

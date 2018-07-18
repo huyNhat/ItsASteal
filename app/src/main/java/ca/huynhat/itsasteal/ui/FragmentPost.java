@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import ca.huynhat.itsasteal.R;
 
-public class Fragment_Notification extends Fragment {
-    private static final String TAG = Fragment_Notification.class.getSimpleName();
+public class FragmentPost extends Fragment {
+    private static final String TAG = FragmentPost.class.getSimpleName();
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class Fragment_Notification extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView= inflater.inflate(R.layout.fragment_notification_layout, container,false);
+        View rootView= inflater.inflate(R.layout.fragment_post_layout, container,false);
 
         return rootView;
     }

@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import ca.huynhat.itsasteal.R;
 import ca.huynhat.itsasteal.utils.DealCommentAdapter;
 
-public class Fragment_Deal_Detail extends Fragment {
+public class FragmentDealDetail extends Fragment {
 
     private RecyclerView commentRecyclerList;
     private DealCommentAdapter dealCommentAdapter;

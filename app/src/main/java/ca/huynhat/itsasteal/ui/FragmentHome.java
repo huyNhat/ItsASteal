@@ -99,7 +99,7 @@ public class FragmentHome extends Fragment {
                     Toast.makeText(getActivity(), deal.getDealName() + " tapped", Toast.LENGTH_SHORT).show();
 
                     getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.frame_container,new Fragment_Deal_Detail())
+                            .replace(R.id.frame_container,new FragmentDealDetail())
                             .addToBackStack(null)
                             .commit();
 
@@ -204,7 +204,6 @@ public class FragmentHome extends Fragment {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                     // permission was granted, yay! Do the
                     // location-related task you need to do.
                     if (ContextCompat.checkSelfPermission(getActivity(),
@@ -213,6 +212,7 @@ public class FragmentHome extends Fragment {
                         mGoogleMap.setMyLocationEnabled(true);
                     }
                 } else {
+
                 }
                 return;
             }

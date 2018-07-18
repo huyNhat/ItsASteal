@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import ca.huynhat.itsasteal.R;
 
-public class Fragment_Pinned extends Fragment {
-    private static final String TAG = Fragment_Pinned.class.getSimpleName();
+public class FragmentProfile extends Fragment {
+    private static final String TAG = FragmentProfile.class.getSimpleName();
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class Fragment_Pinned extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView= inflater.inflate(R.layout.fragment_pinned_layout, container,false);
+        View rootView= inflater.inflate(R.layout.fragment_profile_layout, container,false);
 
         return rootView;
     }
