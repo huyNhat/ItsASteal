@@ -60,6 +60,8 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:4.34.0'
 
 
+    //Circle ImageView
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

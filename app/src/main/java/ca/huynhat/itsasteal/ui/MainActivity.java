@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
                                     .setAvailableProviders(Arrays.asList(
+                                            new AuthUI.IdpConfig.FacebookBuilder().build(),
                                             new AuthUI.IdpConfig.EmailBuilder().build(),
                                             new AuthUI.IdpConfig.PhoneBuilder().build()))
                                     .setLogo(R.mipmap.ic_itsasteal)
@@ -116,12 +117,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void loadFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        fragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.frame_container,fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+       if(!isFinishing()){
+           FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+           Bundle bundle = new Bundle();
+           fragment.setArguments(bundle);
+           fragmentTransaction.replace(R.id.frame_container,fragment);
+           fragmentTransaction.addToBackStack(null);
+           fragmentTransaction.commitAllowingStateLoss();
+       }
+
+
 
     }
 
