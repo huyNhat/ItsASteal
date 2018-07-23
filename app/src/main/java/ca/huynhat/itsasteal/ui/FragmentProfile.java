@@ -22,6 +22,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import ca.huynhat.itsasteal.R;
 
@@ -39,6 +40,7 @@ public class FragmentProfile extends Fragment {
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class FragmentProfile extends Fragment {
     private void init(View rootView) {
         context = getActivity();
         userNameTextview = (TextView) rootView.findViewById(R.id.userNameTextView);
-        //userNameTextview.setText(this.getArguments().getString("current_user"));
+        userNameTextview.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
 
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         setHasOptionsMenu(true);
@@ -104,4 +106,6 @@ public class FragmentProfile extends Fragment {
         super.onDetach();
         Log.d(TAG, "onDetach is called");
     }
+
+
 }

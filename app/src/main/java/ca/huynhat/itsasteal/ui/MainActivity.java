@@ -17,13 +17,19 @@ import android.widget.Toast;
 
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Arrays;
 import java.util.List;
 
 import ca.huynhat.itsasteal.R;
+import ca.huynhat.itsasteal.cloudmessaging.MyFirebaseInstanceIDService;
+import ca.huynhat.itsasteal.models.User;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -38,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FirebaseAuth mFirebaseAuth;
 
     private FrameLayout frameLayout;
+
+
+    //Firestore
+    private FirebaseFirestore mFireStore;
 
     //Vars
     private boolean isMenuTapped = false;
@@ -63,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(user != null){
                     //Signed in-->STAY
                     init();
+                    createUser(user);
+
+
 
                 }else {
                     //frameLayout.setVisibility(View.INVISIBLE);
@@ -81,12 +94,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
     }
 
+    private void createUser(FirebaseUser user) {
+        final CollectionReference mUser = mFireStore.collection("user");
+
+        User currentUser = new User();
+        currentUser.setUser_id(user.getUid());
+        currentUser.setUser_name("");
+        currentUser.setInstance_id(FirebaseInstanceId.getInstance().getToken());
+        currentUser.setCurrent_location_coordinate(new LatLng(0,0));
+
+        mUser.add(currentUser);
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
+
+
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
                 finish();
@@ -101,6 +129,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionbar.setTitle("It's a Steal!");
+
+        mFireStore = FirebaseFirestore.getInstance();
+
+
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
