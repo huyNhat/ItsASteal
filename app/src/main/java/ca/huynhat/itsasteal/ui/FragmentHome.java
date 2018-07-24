@@ -12,11 +12,16 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -60,6 +65,8 @@ public class FragmentHome extends Fragment {
     //Widgets
     private RecyclerView homeRecyclerView;
     private BottomSheetBehavior bottomSheetBehavior;
+    private ActionBar actionBar;
+
 
     private HomeRecyclerAdapter homeRecyclerAdapter;
 
@@ -74,6 +81,9 @@ public class FragmentHome extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView= inflater.inflate(R.layout.fragment_home_layout, container,false);
+
+        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        setHasOptionsMenu(true);
 
         initMap(rootView,savedInstanceState);
 
@@ -262,6 +272,16 @@ public class FragmentHome extends Fragment {
         }
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.home_add_option,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onResume() {

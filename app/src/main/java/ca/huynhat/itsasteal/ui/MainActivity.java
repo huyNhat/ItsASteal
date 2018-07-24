@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,8 +21,11 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Arrays;
@@ -30,6 +34,7 @@ import java.util.List;
 import ca.huynhat.itsasteal.R;
 import ca.huynhat.itsasteal.cloudmessaging.MyFirebaseInstanceIDService;
 import ca.huynhat.itsasteal.models.User;
+import ca.huynhat.itsasteal.utils.Constants;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -43,11 +48,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseAuth mFirebaseAuth;
 
+    //Firebase DB
+    private FirebaseDatabase mFirebaseDatabase;
+
     private FrameLayout frameLayout;
-
-
-    //Firestore
-    private FirebaseFirestore mFireStore;
 
     //Vars
     private boolean isMenuTapped = false;
@@ -84,8 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     .createSignInIntentBuilder()
                                     .setAvailableProviders(Arrays.asList(
                                             new AuthUI.IdpConfig.FacebookBuilder().build(),
-                                            new AuthUI.IdpConfig.EmailBuilder().build(),
-                                            new AuthUI.IdpConfig.PhoneBuilder().build()))
+                                            new AuthUI.IdpConfig.EmailBuilder().build()))
                                     .setLogo(R.mipmap.ic_itsasteal)
                                     .build(),
                             RC_SIGN_IN);
@@ -95,16 +98,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void createUser(FirebaseUser user) {
-        final CollectionReference mUser = mFireStore.collection("user");
+        final DatabaseReference usersRef = mFirebaseDatabase.getReference()
+                .child(Constants.USERS_LOCATION).child(user.getUid());
 
-        User currentUser = new User();
-        currentUser.setUser_id(user.getUid());
-        currentUser.setUser_name("");
-        currentUser.setInstance_id(FirebaseInstanceId.getInstance().getToken());
-        currentUser.setCurrent_location_coordinate(new LatLng(0,0));
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() == null){
+                    User newUser = new User(user.getUid().toString()
+                            , user.getDisplayName().toString().toLowerCase());
+                    usersRef.setValue(newUser);
+                    usersRef.child("instanceId").setValue(FirebaseInstanceId.getInstance().getToken());
+                }
+            }
 
-        mUser.add(currentUser);
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
     }
 
     @Override
@@ -130,9 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionbar.setTitle("It's a Steal!");
 
-        mFireStore = FirebaseFirestore.getInstance();
-
-
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 

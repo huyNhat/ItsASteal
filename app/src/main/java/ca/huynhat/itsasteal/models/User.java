@@ -12,10 +12,9 @@ public class User {
 
     }
 
-    public User(String user_id, String user_name, LatLng current_location_coordinate) {
+    public User(String user_id, String user_name) {
         this.user_id = user_id;
         this.user_name = user_name;
-        this.current_location_coordinate = current_location_coordinate;
     }
 
 

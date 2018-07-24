@@ -4,8 +4,11 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+
+import ca.huynhat.itsasteal.utils.Constants;
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
@@ -25,10 +28,8 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if(firebaseUser!=null){
-
-            //TODO: replace with firestore collection
-//            FirebaseDatabase.getInstance().getReference().child("users")
-//                    .child(firebaseUser.getUid()).child("instanceId").setValue(instanceId);
+            FirebaseDatabase.getInstance().getReference().child(Constants.USERS_LOCATION)
+                    .child(firebaseUser.getUid()).child("instanceId").setValue(instanceId);
         }
     }
 }
