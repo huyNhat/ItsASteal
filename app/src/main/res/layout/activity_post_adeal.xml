@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ImageView
+            android:id="@+id/deal_img"
+            android:layout_width="match_parent"
+            android:layout_height="146dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_launcher_background"
+            android:visibility="visible"/>
+
+
+        <EditText
+            android:id="@+id/deal_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:inputType="textPersonName"
+            android:hint="Deal Name"
+            android:drawableLeft="@drawable/ic_home"
+            app:layout_constraintEnd_toEndOf="@+id/deal_img"
+            app:layout_constraintStart_toStartOf="@+id/deal_img"
+            app:layout_constraintTop_toBottomOf="@+id/deal_img" />
+
+        <EditText
+            android:id="@+id/inputPrice"
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawableLeft="@drawable/ic_home"
+            android:ems="10"
+            android:hint="Price"
+            android:inputType="numberDecimal"
+            app:layout_constraintStart_toStartOf="@+id/deal_name"
+            app:layout_constraintTop_toBottomOf="@+id/deal_name" />
+
+        <EditText
+            android:id="@+id/inputQuantity"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:drawableLeft="@drawable/ic_home"
+            android:ems="10"
+            android:hint="Est. Quantity"
+            android:inputType="numberDecimal"
+            app:layout_constraintStart_toEndOf="@+id/inputPrice"
+            app:layout_constraintTop_toTopOf="@+id/inputPrice" />
+
+        <EditText
+            android:id="@+id/inputStore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:drawableLeft="@drawable/ic_home"
+            android:hint="Store Name"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputPrice" />
+
+        <Button
+            android:id="@+id/buttonPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Post"
+            android:textColor="@color/White"
+            android:background="@drawable/purple_onclick_gray_layout"
+            app:layout_constraintEnd_toEndOf="@+id/inputStore"
+            app:layout_constraintStart_toStartOf="@+id/inputStore"
+            app:layout_constraintTop_toBottomOf="@+id/inputStore" />
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Cancel"
+            android:textColor="@color/colorPrimary"
+            android:background="@drawable/white_purple_border_layout"
+            app:layout_constraintEnd_toEndOf="@+id/buttonPost"
+            app:layout_constraintStart_toStartOf="@+id/buttonPost"
+            app:layout_constraintTop_toBottomOf="@+id/buttonPost"
+            android:visibility="visible"/>
+
+
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progressBar_posting_item"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="73dp"
+            android:layout_height="78dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonPost"
+            app:layout_constraintEnd_toEndOf="@+id/buttonPost"
+            app:layout_constraintStart_toStartOf="@+id/buttonPost"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

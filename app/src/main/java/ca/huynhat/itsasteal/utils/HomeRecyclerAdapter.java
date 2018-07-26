@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -74,6 +73,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     }
 
 
+
     public class AppViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView thumbnail;
@@ -99,15 +99,10 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             num_thumps_up.setText(String.valueOf(mDeal.getThumpsUp()));
 
             String sampleImgUrl = "https://images.unsplash.com/photo-1458862768540-8b091824fe2d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=8aae34cf35df31a592f0bef16e6342ef";
-            Picasso.get().load(sampleImgUrl).resize(60, 80).into(thumbnail);
+            Glide.with(context).load(sampleImgUrl).into(thumbnail);
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onDealItemClickListener.onItemClick(mDeal);
-                }
-            });
+            itemView.setOnClickListener(v -> onDealItemClickListener.onItemClick(mDeal));
         }
     }
 }

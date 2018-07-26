@@ -9,7 +9,6 @@ import java.util.Map;
 public class Deal {
     private String deal_id;
     private String dealName;
-    private String dealDesc;
     private int quantity;
     private long price;
     private String storeName;
@@ -23,15 +22,14 @@ public class Deal {
     private int thumpsDown;
 
 
-    Deal(){
+    public Deal(){
 
     }
 
-    public Deal(String deal_id, String dealName, String dealDesc, int quantity, long price, String storeName,
+    public Deal(String deal_id, String dealName, int quantity, long price, String storeName,
                 Double latitude, Double longtitude, String timeStamp, String deal_img_url, String user_id) {
         this.deal_id = deal_id;
         this.dealName = dealName;
-        this.dealDesc = dealDesc;
         this.quantity = quantity;
         this.price = price;
         this.storeName = storeName;
@@ -83,14 +81,6 @@ public class Deal {
 
     public void setDealName(String dealName) {
         this.dealName = dealName;
-    }
-
-    public String getDealDesc() {
-        return dealDesc;
-    }
-
-    public void setDealDesc(String dealDesc) {
-        this.dealDesc = dealDesc;
     }
 
     public int getQuantity() {

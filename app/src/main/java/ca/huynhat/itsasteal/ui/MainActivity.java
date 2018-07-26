@@ -79,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     init();
                     createUser(user);
 
-
-
                 }else {
                     //frameLayout.setVisibility(View.INVISIBLE);
                     startActivityForResult(
@@ -196,9 +194,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
 
             case R.id.nav_post:
-                actionbar.setTitle("Posting a Deal");
-                fragment = new FragmentPost();
-                loadFragment(fragment);
+//                actionbar.setTitle("Post a Deal");
+//                fragment = new FragmentPost();
+//                loadFragment(fragment);
                 return true;
 
             case R.id.nav_notification:

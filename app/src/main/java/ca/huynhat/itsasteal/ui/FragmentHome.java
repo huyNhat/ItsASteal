@@ -3,6 +3,7 @@ package ca.huynhat.itsasteal.ui;
 import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -27,6 +28,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -39,12 +43,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ca.huynhat.itsasteal.R;
 import ca.huynhat.itsasteal.models.Deal;
+import ca.huynhat.itsasteal.utils.Constants;
+import ca.huynhat.itsasteal.utils.DealViewHolder;
 import ca.huynhat.itsasteal.utils.HomeRecyclerAdapter;
 import ca.huynhat.itsasteal.viewmodels.HomeFeedViewModel;
 
@@ -67,9 +75,13 @@ public class FragmentHome extends Fragment {
     private BottomSheetBehavior bottomSheetBehavior;
     private ActionBar actionBar;
 
-
     private HomeRecyclerAdapter homeRecyclerAdapter;
 
+    //Current location
+    private LatLng currentLocation;
+
+    //Firebase
+    DatabaseReference reference;
 
 
     @Override
@@ -95,9 +107,14 @@ public class FragmentHome extends Fragment {
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         homeRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        reference = FirebaseDatabase.getInstance().getReference(Constants.DEALS_LOCATION);
 
-        final ProgressBar mProgressBar = (ProgressBar) rootView.findViewById(R.id.loading_bar);
 
+
+
+        //final ProgressBar mProgressBar = (ProgressBar) rootView.findViewById(R.id.loading_bar);
+
+        /*
 
         //ViewModel & LiveData
         HomeFeedViewModel homeFeedViewModel = ViewModelProviders.of(this).get(HomeFeedViewModel.class);
@@ -120,6 +137,8 @@ public class FragmentHome extends Fragment {
 
         });
 
+        */
+
 
 
 
@@ -127,6 +146,40 @@ public class FragmentHome extends Fragment {
 
 
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerOptions<Deal> options =
+                new FirebaseRecyclerOptions.Builder<Deal>().setQuery(reference, Deal.class).build();
+
+        FirebaseRecyclerAdapter<Deal,DealViewHolder> adapter =
+                new FirebaseRecyclerAdapter<Deal, DealViewHolder>(options) {
+                    @NonNull
+                    @Override
+                    public DealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(getContext()).inflate(R.layout.deal_row_item,parent,false);
+
+                        return new DealViewHolder(view);
+                    }
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull DealViewHolder holder, int position, @NonNull Deal model) {
+                        holder.setDealName(model.getDealName());
+                        holder.setImage(model.getDeal_id(),getContext());
+                        holder.setPrice(String.valueOf(model.getPrice()));
+                        holder.setStore(model.getStoreName());
+                        holder.setTimeStamp(model.getTimeStamp());
+                        holder.setThumpUp(String.valueOf(model.getThumpsUp()));
+
+                    }
+                };
+        adapter.startListening();
+
+        homeRecyclerView.setAdapter(adapter);
+
     }
 
     private void initMap(View rootView, @Nullable Bundle savedInstanceState){
@@ -165,19 +218,7 @@ public class FragmentHome extends Fragment {
 
                 googleMap.getUiSettings().setCompassEnabled(true);
                 googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-                /*
-                // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(Float.parseFloat("Lat"),                                                                                     Float.parseFloat("Long"));
-                googleMap.addMarker(new MarkerOptions().position(sydney).
-                        title("Title").snippet("TitleName"));
 
-
-                // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition
-                        (cameraPosition ));
-
-                 */
 
 
                 //TODO: it's getting "last known location" -->check whether it's getting accurate?
@@ -188,9 +229,9 @@ public class FragmentHome extends Fragment {
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             Location location = task.getResult();
-                            LatLng currentLatLng = new LatLng(location.getLatitude(),
+                            currentLocation = new LatLng(location.getLatitude(),
                                     location.getLongitude());
-                            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(currentLatLng,
+                            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(currentLocation,
                                     16);
                             googleMap.moveCamera(update);
                         }
@@ -202,7 +243,6 @@ public class FragmentHome extends Fragment {
             }
         });
     }
-
 
     /**
      * Ref: http://androiddhina.blogspot.com/2017/11/how-to-use-google-map-in-fragment.html
@@ -280,7 +320,15 @@ public class FragmentHome extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()){
+            case R.id.add_item_option:
+                Intent intent = new Intent(getActivity(),PostADealActivity.class);
+                intent.putExtra("myLat",String.valueOf(currentLocation.latitude));
+                intent.putExtra("myLong", String.valueOf(currentLocation.longitude));
+                startActivity(intent);
+                break;
+        }
+        return false;
     }
 
     @Override

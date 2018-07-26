@@ -37,14 +37,14 @@ public class HomeFeedViewModel extends ViewModel {
             @Override
             public void run() {
                 List<Deal> dealList = new ArrayList<>();
-                dealList.add(new Deal("1", "Apple iPhone 6",
-                        "brand-new",19, 300 ,"BestBuy",
+                dealList.add(new Deal("1", "Apple iPhone 6"
+                        ,19, 300 ,"BestBuy",
                         1.1,1.1,"","","1" ));
                 dealList.add(new Deal("2", "Apple iPhone 7",
-                        "brand-new",19,400, "The Source",
+                        19,400, "The Source",
                         1.1,1.1,"","","2" ));
                 dealList.add(new Deal("3", "Apple iPhone 8",
-                        "brand-new",19,500 ,"Canada Computers",
+                      19,500 ,"Canada Computers",
                         1.1,1.1,"","","3" ));
 
 
