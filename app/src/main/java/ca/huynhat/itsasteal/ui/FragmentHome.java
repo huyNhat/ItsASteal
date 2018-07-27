@@ -41,10 +41,15 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +65,7 @@ import ca.huynhat.itsasteal.viewmodels.HomeFeedViewModel;
  * Ref: http://androiddhina.blogspot.com/2017/11/how-to-use-google-map-in-fragment.html
  */
 
-public class FragmentHome extends Fragment {
+public class FragmentHome extends Fragment implements GoogleMap.OnMarkerClickListener {
     private static final String TAG = FragmentHome.class.getSimpleName();
 
     private MapView mMapView;
@@ -81,7 +86,9 @@ public class FragmentHome extends Fragment {
     private LatLng currentLocation;
 
     //Firebase
-    DatabaseReference reference;
+    DatabaseReference dealReference;
+
+    private Marker marker;
 
 
     @Override
@@ -107,7 +114,7 @@ public class FragmentHome extends Fragment {
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         homeRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        reference = FirebaseDatabase.getInstance().getReference(Constants.DEALS_LOCATION);
+        dealReference = FirebaseDatabase.getInstance().getReference(Constants.DEALS_LOCATION);
 
 
 
@@ -153,7 +160,7 @@ public class FragmentHome extends Fragment {
         super.onStart();
 
         FirebaseRecyclerOptions<Deal> options =
-                new FirebaseRecyclerOptions.Builder<Deal>().setQuery(reference, Deal.class).build();
+                new FirebaseRecyclerOptions.Builder<Deal>().setQuery(dealReference, Deal.class).build();
 
         FirebaseRecyclerAdapter<Deal,DealViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Deal, DealViewHolder>(options) {
@@ -238,10 +245,42 @@ public class FragmentHome extends Fragment {
                     }
                 });
 
+                final List<Deal> mList = new ArrayList<>();
+
+                dealReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                            Deal deal = snapshot.getValue(Deal.class);
+                            mList.add(deal);
+
+                            for (int i = 0; i<mList.size();i++){
+                                LatLng latLng = new LatLng(Double.valueOf(deal.getLatitude()),Double.valueOf(deal.getLongtitude()));
+                                if(mGoogleMap!=null){
+                                     marker = mGoogleMap.addMarker(new MarkerOptions().position(latLng).title(deal.getDealName()));
+                                }
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
 
 
             }
         });
+
+
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        return false;
     }
 
     /**
@@ -358,5 +397,6 @@ public class FragmentHome extends Fragment {
         super.onLowMemory();
         mMapView.onLowMemory();
     }
+
 
 }

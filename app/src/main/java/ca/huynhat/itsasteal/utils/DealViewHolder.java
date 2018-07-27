@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -20,7 +19,6 @@ public class DealViewHolder extends RecyclerView.ViewHolder {
 
     public DealViewHolder(View itemView) {
         super(itemView);
-
         thumbnail = (ImageView) itemView.findViewById(R.id.deal_image);
         deal_name1 =(TextView) itemView.findViewById(R.id.deal_name);
         deal_store1= (TextView) itemView.findViewById(R.id.deal_store);

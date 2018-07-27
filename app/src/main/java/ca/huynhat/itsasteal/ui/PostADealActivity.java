@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +29,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -122,13 +126,14 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
                         && !isEmpty(dealQuantity.getText().toString())
                         && !isEmpty(dealStoreName.getText().toString())){
 
-                    uploadImgToCloudStorage();
-                    addNewDeal();
-
-
-                    Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
-                    this.finish();
-
+                    if(selectedImage != null){
+                        uploadImgToCloudStorage();
+                        addNewDeal();
+                        Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
+                        this.finish();
+                    }else {
+                        Toast.makeText(this, "Please select an image for this deal", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else {
                     Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
@@ -152,8 +157,9 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == FROM_GALLERY && resultCode == Activity.RESULT_OK){
-            Toast.makeText(this, "HEREE", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "HERE", Toast.LENGTH_SHORT).show();
             selectedImage = data.getData();
+            thumbBitmap = (Bitmap) data.getExtras().get("data");
             Glide.with(this).load(selectedImage).into(dealImageView);
         }
     }
@@ -197,8 +203,8 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
         Date date = new Date();
         return dateFormat.format(date).toString();
     }
-
-    private class GetDealThumb extends AsyncTask<String, Void, String>{
+    /*
+    private class GetDealThumb extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -210,5 +216,53 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
         protected String doInBackground(String... strings) {
             return null;
         }
+    }
+    */
+
+    /**
+     * Ref: https://stackoverflow.com/questions/50037127/compressing-image-using-asynctask-before-uploading-to-firebase-storage
+     */
+    public class ImageResize extends AsyncTask<Uri, Integer, byte[]>{
+        Bitmap mBitmap;
+
+        public ImageResize(Bitmap bitmap){
+            if (bitmap!= null){
+                this.mBitmap = bitmap;
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(PostADealActivity.this, "Compressing Image", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected byte[] doInBackground(Uri... uris) {
+            if (mBitmap ==null){
+                try {
+                    mBitmap = MediaStore.Images.Media.getBitmap(PostADealActivity.this.getContentResolver(), uris[0]);
+                }catch (IOException e){
+                    Log.d(TAG, "doInBackground: IOException: "+ e.getMessage());
+                }
+            }
+
+            byte[] bytes = null;
+            bytes = getBytesFromBitmap(mBitmap,100);
+            return bytes;
+        }
+
+        @Override
+        protected void onPostExecute(byte[] bytes) {
+            super.onPostExecute(bytes);
+            //mUploadBytes = bytes;
+        }
+
+    }
+
+    public static byte[] getBytesFromBitmap(Bitmap bitmap, int quality){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality,stream);
+        return stream.toByteArray();
     }
 }
