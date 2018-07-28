@@ -1,6 +1,8 @@
 package ca.huynhat.itsasteal.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,11 +13,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import ca.huynhat.itsasteal.R;
+import ca.huynhat.itsasteal.ui.DealDetailActivity;
 
 public class DealViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView thumbnail;
     public TextView deal_name1, deal_store1, time_stamp1, price1, num_thumps_up1;
+    public CardView mCardview;
 
     public DealViewHolder(View itemView) {
         super(itemView);
@@ -25,6 +29,8 @@ public class DealViewHolder extends RecyclerView.ViewHolder {
         time_stamp1 = (TextView) itemView.findViewById(R.id.deal_timestamp);
         price1 = (TextView) itemView.findViewById(R.id.deal_price);
         num_thumps_up1 =(TextView) itemView.findViewById(R.id.thumps_up_count);
+        mCardview = (CardView) itemView.findViewById(R.id.my_card_view);
+
     }
 
     public void setDealName(String deal_name){

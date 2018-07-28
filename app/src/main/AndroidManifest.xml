@@ -25,7 +25,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.PostADealActivity"></activity>
+        <activity android:name=".ui.PostADealActivity" />
+        <activity android:name=".ui.DealDetailActivity"></activity>
     </application>
 
 </manifest>

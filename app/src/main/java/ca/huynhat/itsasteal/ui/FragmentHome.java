@@ -181,6 +181,14 @@ public class FragmentHome extends Fragment implements GoogleMap.OnMarkerClickLis
                         holder.setTimeStamp(model.getTimeStamp());
                         holder.setThumpUp(String.valueOf(model.getThumpsUp()));
 
+                        holder.mCardview.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getContext(), DealDetailActivity.class);
+                                intent.putExtra("deal_id", model.getDeal_id());
+                                startActivity(intent);
+                            }
+                        });
                     }
                 };
         adapter.startListening();
@@ -245,6 +253,7 @@ public class FragmentHome extends Fragment implements GoogleMap.OnMarkerClickLis
                     }
                 });
 
+                //Plot deal location on GMaps
                 final List<Deal> mList = new ArrayList<>();
 
                 dealReference.addListenerForSingleValueEvent(new ValueEventListener() {
