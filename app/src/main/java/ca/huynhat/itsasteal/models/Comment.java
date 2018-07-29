@@ -5,6 +5,10 @@ public class Comment {
     private String user_id;
     private String content;
 
+    public Comment(){
+
+    }
+
     public Comment(String comment_id, String user_id, String content) {
         this.comment_id = comment_id;
         this.user_id = user_id;

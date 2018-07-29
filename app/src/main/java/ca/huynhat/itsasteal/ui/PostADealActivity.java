@@ -159,7 +159,7 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
         if(requestCode == FROM_GALLERY && resultCode == Activity.RESULT_OK){
             Toast.makeText(this, "HERE", Toast.LENGTH_SHORT).show();
             selectedImage = data.getData();
-            thumbBitmap = (Bitmap) data.getExtras().get("data");
+            //thumbBitmap = (Bitmap) data.getExtras().get("data");
             Glide.with(this).load(selectedImage).into(dealImageView);
         }
     }

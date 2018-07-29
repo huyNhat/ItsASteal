@@ -1,17 +1,30 @@
 package ca.huynhat.itsasteal.ui;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,9 +34,17 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import ca.huynhat.itsasteal.R;
+import ca.huynhat.itsasteal.models.Comment;
 import ca.huynhat.itsasteal.models.Deal;
+import ca.huynhat.itsasteal.utils.CommentViewHolder;
 import ca.huynhat.itsasteal.utils.Constants;
+import ca.huynhat.itsasteal.utils.DealViewHolder;
 
 public class DealDetailActivity extends AppCompatActivity implements View.OnClickListener {
     public final static String TAG = DealDetailActivity.class.getSimpleName();
@@ -33,10 +54,12 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
     private TextView dealTitle, dealStore, dealQuantity, dealTimeStamp, dealPrice;
     private ImageView dealThumb;
     private ImageButton thumpUp, thumpDown;
+    private EditText sendAComment;
+    private RecyclerView commentsOnDealRecyclerView;
 
 
     //Firebase DB
-    DatabaseReference dealReference, userDealReference;
+    DatabaseReference dealReference, userDealReference, commentOnDealReference;
 
     //Vars
     private String deal_id;
@@ -56,6 +79,8 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
                     .child(deal_id);
             userDealReference = FirebaseDatabase.getInstance().getReference(Constants.USERS_DEALS_LOCATION)
                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(deal_id);
+            commentOnDealReference = FirebaseDatabase.getInstance().getReference(Constants.COMMENT_LOCATION)
+                                        .child(deal_id);
 
             init();
 
@@ -65,11 +90,9 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
                     Deal deal = dataSnapshot.getValue(Deal.class);
 
                     actionBar.setTitle(deal.getDealName());
-                    dealTitle.setText(deal.getDealName());
                     dealStore.setText(deal.getStoreName());
                     dealQuantity.setText("Est. Quantity: " + deal.getQuantity());
                     dealTimeStamp.setText("Posted: " + deal.getTimeStamp());
-
                     dealPrice.setText("$" + deal.getPrice());
 
                 }
@@ -86,7 +109,6 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void init() {
-        dealTitle = (TextView) findViewById(R.id.deal_name_detail1);
         dealStore = (TextView) findViewById(R.id.deal_store_name1);
         dealQuantity = (TextView) findViewById(R.id.deal_quantity1);
         dealTimeStamp = (TextView) findViewById(R.id.deal_timestamp1);
@@ -99,6 +121,12 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
         thumpUp = (ImageButton) findViewById(R.id.thumpUpBtn);
         thumpDown = (ImageButton) findViewById(R.id.thumpDownBtn);
 
+        sendAComment = (EditText) findViewById(R.id.messageToSend);
+        sendAComment.clearFocus();
+
+        commentsOnDealRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_CommentsOnDeal);
+        commentsOnDealRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        commentsOnDealRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
     }
 
@@ -124,4 +152,62 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    public void sendMessage(View view) {
+
+        String messageString = sendAComment.getText().toString();
+
+        if(!messageString.equals("")){
+            final DatabaseReference pushRef = commentOnDealReference.push();
+            final String commentId = pushRef.getKey();
+
+
+
+            //Create message object with text/voice etc
+            Comment comment = new Comment(commentId,FirebaseAuth.getInstance().getCurrentUser().getUid(),messageString);
+            //Create HashMap for Pushing
+            HashMap<String, Object> messageItemMap = new HashMap<String, Object>();
+            HashMap<String,Object> messageObj = (HashMap<String, Object>) new ObjectMapper()
+                    .convertValue(comment, Map.class);
+            messageItemMap.put("/" + commentId, messageObj);
+            commentOnDealReference.updateChildren(messageItemMap)
+                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            sendAComment.setText("");
+                        }
+                    });
+        }
+        else {
+            Toast.makeText(this, "Please enter a comment", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerOptions<Comment> options =
+                new FirebaseRecyclerOptions.Builder<Comment>().setQuery(commentOnDealReference, Comment.class).build();
+
+        FirebaseRecyclerAdapter<Comment,CommentViewHolder> adapter =
+                new FirebaseRecyclerAdapter<Comment, CommentViewHolder>(options) {
+
+                    @NonNull
+                    @Override
+                    public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.comment_row_layout,parent,false);
+                        return new CommentViewHolder(view);
+                    }
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull CommentViewHolder holder, int position, @NonNull Comment model) {
+                        holder.setUserComment(model.getContent());
+                    }
+                };
+        adapter.startListening();
+
+        commentsOnDealRecyclerView.setAdapter(adapter);
+
+    }
 }

@@ -67,6 +67,9 @@ dependencies {
     //Circle ImageView
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
+    //Jackson Databind
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.2'
+
 
 }
 
