@@ -17,8 +17,6 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
     public CommentViewHolder(View itemView) {
         super(itemView);
         userComment = (TextView) itemView.findViewById(R.id.textViewComment);
-
-
     }
 
     public void setUserComment(String q){

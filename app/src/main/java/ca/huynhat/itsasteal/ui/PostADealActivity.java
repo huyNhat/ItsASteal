@@ -141,6 +141,7 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.buttonCancel:
                 this.finish();
+                startActivity(new Intent(PostADealActivity.this,MainActivity.class));
                 break;
 
             case R.id.deal_img:
@@ -192,6 +193,7 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
+                startActivity(new Intent(PostADealActivity.this,MainActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

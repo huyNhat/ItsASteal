@@ -4,18 +4,18 @@
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
         android:title="@string/nav_home"/>
-    <item
-        android:id="@+id/nav_pinned"
-        android:icon="@drawable/ic_pinned"
-        android:title="@string/nav_pinned"/>
+    <!--<item-->
+        <!--android:id="@+id/nav_pinned"-->
+        <!--android:icon="@drawable/ic_pinned"-->
+        <!--android:title="@string/nav_pinned"/>-->
     <item
         android:id="@+id/nav_post"
         android:icon="@drawable/ic_post"
         android:title="@string/nav_post"/>
-    <item
-        android:id="@+id/nav_notification"
-        android:icon="@drawable/ic_notification"
-        android:title="@string/nav_notification"/>
+    <!--<item-->
+        <!--android:id="@+id/nav_notification"-->
+        <!--android:icon="@drawable/ic_notification"-->
+        <!--android:title="@string/nav_notification"/>-->
 
 
     <item

@@ -180,7 +180,6 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
         else {
             Toast.makeText(this, "Please enter a comment", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override

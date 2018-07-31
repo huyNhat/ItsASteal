@@ -117,8 +117,6 @@ public class FragmentHome extends Fragment implements GoogleMap.OnMarkerClickLis
         dealReference = FirebaseDatabase.getInstance().getReference(Constants.DEALS_LOCATION);
 
 
-
-
         //final ProgressBar mProgressBar = (ProgressBar) rootView.findViewById(R.id.loading_bar);
 
         /*
@@ -145,12 +143,6 @@ public class FragmentHome extends Fragment implements GoogleMap.OnMarkerClickLis
         });
 
         */
-
-
-
-
-
-
 
         return rootView;
     }
