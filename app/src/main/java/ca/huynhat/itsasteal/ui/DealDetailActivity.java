@@ -125,7 +125,10 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
         sendAComment.clearFocus();
 
         commentsOnDealRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_CommentsOnDeal);
-        commentsOnDealRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        commentsOnDealRecyclerView.setLayoutManager(linearLayoutManager);
         commentsOnDealRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
     }

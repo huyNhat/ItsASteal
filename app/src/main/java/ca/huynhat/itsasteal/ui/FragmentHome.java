@@ -111,8 +111,13 @@ public class FragmentHome extends Fragment implements GoogleMap.OnMarkerClickLis
         bottomSheetBehavior.setPeekHeight(380);
         //Setting up RecyclerView
         homeRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView_NearByDeals);
-        homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+
+        homeRecyclerView.setLayoutManager(linearLayoutManager);
         homeRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
 
         dealReference = FirebaseDatabase.getInstance().getReference(Constants.DEALS_LOCATION);
 

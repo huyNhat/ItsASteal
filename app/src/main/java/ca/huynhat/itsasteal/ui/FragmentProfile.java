@@ -93,7 +93,10 @@ public class FragmentProfile extends Fragment  implements RecyclerItemTouchHelpe
         setHasOptionsMenu(true);
 
         mRecylerView = (RecyclerView) rootView.findViewById(R.id.myItemRecyclerList);
-        mRecylerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        mRecylerView.setLayoutManager(linearLayoutManager);
         mRecylerView.setItemAnimator(new DefaultItemAnimator());
 
         userDealReference = FirebaseDatabase.getInstance().getReference(Constants.USERS_DEALS_LOCATION)
