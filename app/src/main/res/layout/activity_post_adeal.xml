@@ -71,7 +71,7 @@
             app:layout_constraintStart_toEndOf="@+id/inputPrice"
             app:layout_constraintTop_toTopOf="@+id/inputPrice" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/inputStore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
