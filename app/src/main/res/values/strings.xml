@@ -7,10 +7,18 @@
     <string name="nav_profile">Profile</string>
 
 
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+    <string name="google_maps_key2" templateMergeStrategy="preserve" translatable="false">
         AIzaSyAfiSJAHbSeZw3D1VcqSnSNGzK7IkYO7Uc
      </string>
 
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyB-B7n_xfBTPGp0lH6VvLNj-OAGjPl97SA
+     </string>
+
+
     <string name="facebook_application_id" translatable="false">466827620407015</string>
+
+    <string name="place_details">&lt;b&gt;%1$s&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Place Id: %2$s&lt;/i&gt;&lt;br/&gt;Address: %3$s&lt;br/&gt;Phone: %4$s&lt;br/&gt;Website: %5$s</string>
+
 
 </resources>
