@@ -55,7 +55,7 @@
             android:textAlignment="center"
             android:gravity="center"
             android:textColor="@color/colorPrimary"
-            android:textSize="32sp"/>
+            android:textSize="24sp"/>
     </LinearLayout>
 
     <LinearLayout

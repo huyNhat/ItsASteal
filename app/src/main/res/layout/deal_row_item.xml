@@ -134,7 +134,7 @@
             android:layout_marginTop="8dp"
             android:text="$79"
             android:textColor="@color/colorPrimary"
-            android:textSize="32sp"
+            android:textSize="24sp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"

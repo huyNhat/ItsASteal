@@ -10,7 +10,7 @@ public class Deal {
     private String deal_id;
     private String dealName;
     private int quantity;
-    private long price;
+    private Double price;
     private String storeName;
     private Double latitude;
     private Double longtitude;
@@ -26,7 +26,7 @@ public class Deal {
 
     }
 
-    public Deal(String deal_id, String dealName, int quantity, long price, String storeName,
+    public Deal(String deal_id, String dealName, int quantity, Double price, String storeName,
                 Double latitude, Double longtitude, String timeStamp, String deal_img_url, String user_id) {
         this.deal_id = deal_id;
         this.dealName = dealName;
@@ -59,11 +59,11 @@ public class Deal {
         this.thumpsDown = thumpsDown;
     }
 
-    public long getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

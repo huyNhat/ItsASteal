@@ -38,13 +38,13 @@ public class HomeFeedViewModel extends ViewModel {
             public void run() {
                 List<Deal> dealList = new ArrayList<>();
                 dealList.add(new Deal("1", "Apple iPhone 6"
-                        ,19, 300 ,"BestBuy",
+                        ,19, 300.0 ,"BestBuy",
                         1.1,1.1,"","","1" ));
                 dealList.add(new Deal("2", "Apple iPhone 7",
-                        19,400, "The Source",
+                        19,400.0, "The Source",
                         1.1,1.1,"","","2" ));
                 dealList.add(new Deal("3", "Apple iPhone 8",
-                      19,500 ,"Canada Computers",
+                      19,500.0 ,"Canada Computers",
                         1.1,1.1,"","","3" ));
 
 

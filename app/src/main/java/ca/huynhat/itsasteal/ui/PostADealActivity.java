@@ -55,8 +55,10 @@ import ca.huynhat.itsasteal.R;
 import ca.huynhat.itsasteal.models.Deal;
 import ca.huynhat.itsasteal.utils.Constants;
 import ca.huynhat.itsasteal.utils.PlaceAutocompleteAdapter;
+import ca.huynhat.itsasteal.utils.SelectPhotoDialog;
 
-public class PostADealActivity extends AppCompatActivity implements View.OnClickListener {
+public class PostADealActivity extends AppCompatActivity implements View.OnClickListener,
+        SelectPhotoDialog.OnPhotoSelectedListner {
 
     private static final String TAG = PostADealActivity.class.getSimpleName();
     private static final int FROM_GALLERY = 123;
@@ -67,12 +69,12 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
     private ImageView dealImageView;
     private EditText dealName, dealPrice, dealQuantity;
     private ProgressBar progressBar;
-    private Bitmap selectedBitmap, thumbBitmap;
     private String imgURL="", myLat, myLong;
 
     //Vars
     private String dealId;
-    private Uri selectedImage;
+    private Bitmap selectedBitmap, thumbBitmap;
+    private Uri selectedURI;
 
 
     //Firebase
@@ -151,7 +153,7 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
         newDeal.setDealName(dealName.getText().toString().trim());
         newDeal.setLatitude(Double.valueOf(myLat));
         newDeal.setLongtitude(Double.valueOf(myLong));
-        newDeal.setPrice(Long.valueOf(dealPrice.getText().toString().trim()));
+        newDeal.setPrice(Double.valueOf(dealPrice.getText().toString().trim()));
         newDeal.setQuantity(Integer.valueOf(dealQuantity.getText().toString().trim()));
         newDeal.setStoreName(dealStoreName.getText().toString().trim());
         newDeal.setUser_id(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -171,7 +173,7 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
                         && !isEmpty(dealQuantity.getText().toString())
                         && !isEmpty(dealStoreName.getText().toString())){
 
-                    if(selectedImage != null){
+                    if(selectedURI != null || selectedBitmap != null){
                         uploadImgToCloudStorage();
                         addNewDeal();
                         Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
@@ -190,37 +192,43 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.deal_img:
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, FROM_GALLERY);
+                SelectPhotoDialog bottomDialog = new SelectPhotoDialog();
+                bottomDialog.show(getSupportFragmentManager(),"bottomsheet");
+                //bottomDialog.setTargetFragment(FragmentSell.this, 1);
                 break;
 
         }
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == FROM_GALLERY && resultCode == Activity.RESULT_OK){
-            Toast.makeText(this, "HERE", Toast.LENGTH_SHORT).show();
-            selectedImage = data.getData();
-            //thumbBitmap = (Bitmap) data.getExtras().get("data");
-            Glide.with(this).load(selectedImage).into(dealImageView);
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if(requestCode == FROM_GALLERY && resultCode == Activity.RESULT_OK){
+//            Toast.makeText(this, "HERE", Toast.LENGTH_SHORT).show();
+//            selectedURI = data.getData();
+//            //thumbBitmap = (Bitmap) data.getExtras().get("data");
+//            Glide.with(this).load(selectedURI).into(dealImageView);
+//        }
+//    }
 
     private void uploadImgToCloudStorage(){
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(dealId);
-        storageReference.putFile(selectedImage).addOnFailureListener(e -> {
-            //Fail to upload
-            Toast.makeText(this, "Fail to upload IMG", Toast.LENGTH_SHORT).show();
-        }).addOnSuccessListener(taskSnapshot -> {
-            //Success Upload
-            Toast.makeText(this, "Success to upload IMG", Toast.LENGTH_SHORT).show();
 
-        });
+        if(selectedURI == null){
+            storageReference.putBytes(getBytesFromBitmap(selectedBitmap,100)).addOnSuccessListener(taskSnapshot -> {
+                Log.d(TAG,"success upload bitmap");
+            });
+        }else {
+            storageReference.putFile(selectedURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.d(TAG,"success upload img");
+                }
+            });
+        }
+
     }
 
     public boolean isEmpty(String string){
@@ -250,6 +258,20 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         return dateFormat.format(date).toString();
+    }
+
+    @Override
+    public void getImagePath(Uri imagePath) {
+        Glide.with(this).load(imagePath).into(dealImageView);
+        selectedBitmap=null;
+        selectedURI = imagePath;
+    }
+
+    @Override
+    public void getImageBitmap(Bitmap bitmap) {
+        dealImageView.setImageBitmap(bitmap);
+        selectedURI=null;
+        selectedBitmap=bitmap;
     }
     /*
     private class GetDealThumb extends AsyncTask<String, Void, String> {

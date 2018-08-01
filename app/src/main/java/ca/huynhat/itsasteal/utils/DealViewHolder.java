@@ -47,7 +47,7 @@ public class DealViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setStore(String store){
-        deal_store1.setText(store);
+        deal_store1.setText(store.split(",")[0]);
     }
 
     public void setTimeStamp(String time){
