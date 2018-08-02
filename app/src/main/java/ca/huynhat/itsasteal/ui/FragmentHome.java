@@ -244,7 +244,7 @@ public class FragmentHome extends Fragment implements GoogleMap.OnMarkerClickLis
                             currentLocation = new LatLng(location.getLatitude(),
                                     location.getLongitude());
                             CameraUpdate update = CameraUpdateFactory.newLatLngZoom(currentLocation,
-                                    16);
+                                    12);
                             googleMap.moveCamera(update);
                         }
                     }

@@ -155,8 +155,6 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
 
     private void init() {
         actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionbar.setTitle("It's a Steal!");
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
