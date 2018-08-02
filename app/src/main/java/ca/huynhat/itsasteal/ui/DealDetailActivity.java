@@ -64,6 +64,7 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
 
     //Vars
     private String deal_id;
+    private int currentThumpUp, currentThumpDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +97,9 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
                     dealTimeStamp.setText("Posted: " + TimeAgo.getTimeAgo(deal.getTimeStamp()));
                     dealPrice.setText("$" + deal.getPrice());
 
+                    currentThumpUp = deal.getThumpsUp();
+                    currentThumpDown = deal.getThumpsDown();
+
                 }
 
                 @Override
@@ -121,6 +125,8 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
 
         thumpUp = (ImageButton) findViewById(R.id.thumpUpBtn);
         thumpDown = (ImageButton) findViewById(R.id.thumpDownBtn);
+        thumpUp.setOnClickListener(this);
+        thumpDown.setOnClickListener(this);
 
         sendAComment = (EditText) findViewById(R.id.messageToSend);
         sendAComment.clearFocus();
@@ -136,6 +142,17 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.thumpUpBtn:
+                Toast.makeText(this, "Thumb up clicked", Toast.LENGTH_SHORT).show();
+
+                dealReference.child("thumpsUp").setValue(currentThumpUp + 1);
+                break;
+            case  R.id.thumpDownBtn:
+                Toast.makeText(this, "Butt Down clicked", Toast.LENGTH_SHORT).show();
+                dealReference.child("thumpsDown").setValue(currentThumpDown + 1);
+                break;
+        }
 
     }
 
