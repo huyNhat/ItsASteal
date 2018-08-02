@@ -104,6 +104,7 @@ public class PostADealActivity extends AppCompatActivity implements View.OnClick
         myLong = getIntent().getStringExtra("myLong");
 
         // Construct a GeoDataClient for the Google Places API for Android. gg
+        //noinspection deprecation
         mGeoDataClient = Places.getGeoDataClient(this, null);
 
         init();

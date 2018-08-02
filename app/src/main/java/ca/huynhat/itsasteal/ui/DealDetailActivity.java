@@ -54,7 +54,7 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
     private ActionBar actionBar;
     private TextView dealTitle, dealStore, dealQuantity, dealTimeStamp, dealPrice;
     private ImageView dealThumb;
-    private ImageButton thumpUp, thumpDown;
+    private Button thumpUp, thumpDown;
     private EditText sendAComment;
     private RecyclerView commentsOnDealRecyclerView;
 
@@ -86,7 +86,7 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
 
             init();
 
-            dealReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            dealReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Deal deal = dataSnapshot.getValue(Deal.class);
@@ -96,7 +96,8 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
                     dealQuantity.setText("Est. Quantity: " + deal.getQuantity());
                     dealTimeStamp.setText("Posted: " + TimeAgo.getTimeAgo(deal.getTimeStamp()));
                     dealPrice.setText("$" + deal.getPrice());
-
+                    thumpUp.setText(String.valueOf(deal.getThumpsUp()));
+                    thumpDown.setText(String.valueOf(deal.getThumpsDown()));
                     currentThumpUp = deal.getThumpsUp();
                     currentThumpDown = deal.getThumpsDown();
 
@@ -123,8 +124,8 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(deal_id);
         Glide.with(getApplicationContext()).load(storageReference).into(dealThumb);
 
-        thumpUp = (ImageButton) findViewById(R.id.thumpUpBtn);
-        thumpDown = (ImageButton) findViewById(R.id.thumpDownBtn);
+        thumpUp = (Button) findViewById(R.id.thumpUpBtn);
+        thumpDown = (Button) findViewById(R.id.thumpDownBtn);
         thumpUp.setOnClickListener(this);
         thumpDown.setOnClickListener(this);
 
@@ -144,12 +145,11 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.thumpUpBtn:
-                Toast.makeText(this, "Thumb up clicked", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(this, "Thumb up tapped", Toast.LENGTH_SHORT).show();
                 dealReference.child("thumpsUp").setValue(currentThumpUp + 1);
                 break;
             case  R.id.thumpDownBtn:
-                Toast.makeText(this, "Butt Down clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Thump Down tapped", Toast.LENGTH_SHORT).show();
                 dealReference.child("thumpsDown").setValue(currentThumpDown + 1);
                 break;
         }

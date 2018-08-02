@@ -70,23 +70,31 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp">
+            android:paddingBottom="8dp"
 
-            <ImageButton
+            >
+
+            <Button
                 android:id="@+id/thumpUpBtn"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_weight="0.5"
                 android:layout_margin="4dp"
-                android:src="@drawable/ic_thumb_up_black_24dp"
+                android:text="45"
+                android:paddingLeft="70dp"
+                android:paddingRight="70dp"
+                android:drawableLeft="@drawable/ic_thumb_up_black_24dp"
                 android:background="@drawable/white_purple_border_layout"/>
-            <ImageButton
+            <Button
                 android:id="@+id/thumpDownBtn"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_weight="0.5"
                 android:layout_margin="4dp"
-                android:src="@drawable/ic_thumb_down_black_24dp"
+                android:text="45"
+                android:paddingLeft="70dp"
+                android:paddingRight="70dp"
+                android:drawableLeft="@drawable/ic_thumb_down_black_24dp"
                 android:background="@drawable/white_purple_border_layout"/>
 
         </LinearLayout>

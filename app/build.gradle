@@ -63,7 +63,6 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.7.2'
     //Places API
     implementation 'com.google.android.gms:play-services-places:15.0.1'
-    implementation 'com.chootdev:timezago:1.1.8'
 }
 
 apply plugin: 'com.google.gms.google-services'
