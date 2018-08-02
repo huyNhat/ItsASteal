@@ -73,6 +73,9 @@ dependencies {
     //Places API
     implementation 'com.google.android.gms:play-services-places:15.0.1'
 
+    implementation 'com.chootdev:timezago:1.1.8'
+
+
 
 }
 

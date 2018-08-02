@@ -175,7 +175,7 @@ public class FragmentHome extends Fragment implements GoogleMap.OnMarkerClickLis
                         holder.setImage(model.getDeal_id(),getContext());
                         holder.setPrice(String.valueOf(model.getPrice()));
                         holder.setStore(model.getStoreName());
-                        holder.setTimeStamp(model.getTimeStamp());
+                        holder.setTimeStamp(model.getTimeStamp().toString());
                         holder.setThumpUp(String.valueOf(model.getThumpsUp()));
 
                         holder.mCardview.setOnClickListener(new View.OnClickListener() {

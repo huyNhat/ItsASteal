@@ -6,8 +6,10 @@
 
     <ImageView
         android:id="@+id/deal_image_detail"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:src="@drawable/bg" />
 
     <LinearLayout
@@ -20,15 +22,7 @@
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8">
-            <TextView
-                android:id="@+id/deal_name_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:text="Beats Solo 3 + Free Case"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:textStyle="bold" />
+            android:layout_weight="0.6">
 
             <TextView
                 android:layout_width="match_parent"
@@ -50,12 +44,12 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="0.4"
             android:text="$79"
-            android:textAlignment="center"
+            android:maxLines="1"
             android:gravity="center"
             android:textColor="@color/colorPrimary"
-            android:textSize="24sp"/>
+            android:textSize="20sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -75,7 +69,6 @@
             android:layout_weight="0.5"
             android:src="@drawable/ic_thumb_down_black_24dp"
             android:background="@color/lightGrey"/>
-
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

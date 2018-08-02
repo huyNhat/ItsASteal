@@ -45,6 +45,7 @@ import ca.huynhat.itsasteal.models.Deal;
 import ca.huynhat.itsasteal.utils.CommentViewHolder;
 import ca.huynhat.itsasteal.utils.Constants;
 import ca.huynhat.itsasteal.utils.DealViewHolder;
+import ca.huynhat.itsasteal.utils.TimeAgo;
 
 public class DealDetailActivity extends AppCompatActivity implements View.OnClickListener {
     public final static String TAG = DealDetailActivity.class.getSimpleName();
@@ -92,7 +93,7 @@ public class DealDetailActivity extends AppCompatActivity implements View.OnClic
                     actionBar.setTitle(deal.getDealName());
                     dealStore.setText(deal.getStoreName());
                     dealQuantity.setText("Est. Quantity: " + deal.getQuantity());
-                    dealTimeStamp.setText("Posted: " + deal.getTimeStamp());
+                    dealTimeStamp.setText("Posted: " + TimeAgo.getTimeAgo(deal.getTimeStamp()));
                     dealPrice.setText("$" + deal.getPrice());
 
                 }

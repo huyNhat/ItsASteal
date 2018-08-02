@@ -10,8 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.choota.dev.ctimeago.TimeAgo;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import ca.huynhat.itsasteal.R;
 import ca.huynhat.itsasteal.ui.DealDetailActivity;
@@ -51,7 +57,16 @@ public class DealViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setTimeStamp(String time){
-        time_stamp1.setText(time);
+//        //TimeAgo timeAgo = new TimeAgo();
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//        long milsec =0;
+//        try {
+//            milsec = dateFormat.parse(time).getTime();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+
+        time_stamp1.setText(ca.huynhat.itsasteal.utils.TimeAgo.getTimeAgo(time));
     }
 
     public void setThumpUp(String thumps){
